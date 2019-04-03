@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.User;
+import com.example.demo.models.UserEx;
 import com.example.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class UsersController {
 
     @GetMapping("/users")
     public String getUserPage(@RequestParam(value = "name", required = false) String name, ModelMap model) {
-        List<User> users;
+        List<UserEx> users;
         if (name == null) {
             users = usersRepository.findAll();
         } else {
@@ -30,7 +30,7 @@ public class UsersController {
     }
 
     @PostMapping(value = "/users")
-    public String postUser(User user) {
+    public String postUser(UserEx user) {
         usersRepository.save(user);
         return "redirect:/users";
     }
