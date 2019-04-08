@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UsersRepository extends JpaRepository<UserEx, Long> {
+public interface UsersExRepository extends JpaRepository<UserEx, Long> {
     List<UserEx> findAllByName(String name);
 }
 

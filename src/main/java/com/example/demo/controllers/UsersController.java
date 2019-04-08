@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.UserEx;
-import com.example.demo.repositories.UsersRepository;
+import com.example.demo.repositories.UsersExRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +15,7 @@ import java.util.List;
 public class UsersController {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersExRepository usersRepository;
 
     @GetMapping("/users")
     public String getUserPage(@RequestParam(value = "name", required = false) String name, ModelMap model) {
