@@ -37,4 +37,14 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     addAdminToProject
     getAllMembersProjects
     findProjectByNameAndMainAdminId*/
+
+    //Реализация метода getAllAdminsProjects в старом проекте
+    List<Project> findAllByMainAdmin_Id(Long id);
+    @Query(value = "select project.* from project, admin_project where admin_project.admin_id = :adminId and project_id = project.id", nativeQuery = true)
+    List<Project> findAllProjectsWhereUserIsAdmin(@Param("adminId") Long adminId);
+
+    Project findByNameAndMainAdmin_Id(String projectId, Long mainAdminId);
+
+    List<Project> findAllByAdminListContains(User user);
+
 }

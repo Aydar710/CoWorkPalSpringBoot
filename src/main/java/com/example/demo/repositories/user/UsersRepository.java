@@ -2,9 +2,11 @@ package com.example.demo.repositories.user;
 
 import com.example.demo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,14 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    @Query("update users set is_admin = true where id = :id")
-    void changeRoleToAdmin(@Param("id") Long id);
+    /*@Modifying
+    @Query(value = "update users set is_admin = true where id = :id", nativeQuery = true)
+    Long changeRoleToAdmin(@Param("id") Long id);*/
+    @Modifying
+    @Transactional
+    @Query(value = "update users set is_admin = true where id = :id", nativeQuery = true)
+    int changeRoleToAdmin(@Param("id") Long id);
+
+    boolean existsByEmailAndPasswordHash(String email, String password);
+
 }
