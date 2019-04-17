@@ -7,7 +7,7 @@ import com.example.demo.models.User;
 import com.example.demo.repositories.project.ProjectRepository;
 import com.example.demo.repositories.task.TaskRepository;
 import com.example.demo.repositories.user.UsersRepository;
-import com.example.demo.services.ProjectService;
+import com.example.demo.services.project.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

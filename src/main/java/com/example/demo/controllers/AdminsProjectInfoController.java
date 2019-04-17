@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class AdminsProjectInfoController {
@@ -32,11 +33,15 @@ public class AdminsProjectInfoController {
     @GetMapping("/projectInfoTasks")
     String getProjectInfoTasksPage(HttpServletRequest request, ModelMap modelMap) {
 
-        int projectId = Helper.getProjectIdFromCookie(request);
+        //TODO Достать id проекта из куков. Не отправляется ajax запрос
+        //int projectId = Helper.getProjectIdFromCookie(request);
+        int projectId = 25;
         ArrayList<Task> allTasks = (ArrayList<Task>) taskRepository.getAllByProjectIdAndIsDone((long) projectId, false);
         modelMap.addAttribute("tasks", allTasks);
-        Project project = projectReposiory.findById((long) projectId).get();
-        modelMap.addAttribute("projectName", project.getName());
+        Optional<Project> project = projectReposiory.findById((long) projectId);
+        if (project.isPresent()){
+            modelMap.addAttribute("projectName", project.get().getName());
+        }
 
         int userId = Helper.getUserIdFromCookie(request);
         User currentUser = usersRepository.findById((long) userId).get();

@@ -40,11 +40,22 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     //Реализация метода getAllAdminsProjects в старом проекте
     List<Project> findAllByMainAdmin_Id(Long id);
+
     @Query(value = "select project.* from project, admin_project where admin_project.admin_id = :adminId and project_id = project.id", nativeQuery = true)
     List<Project> findAllProjectsWhereUserIsAdmin(@Param("adminId") Long adminId);
 
     Project findByNameAndMainAdmin_Id(String projectId, Long mainAdminId);
 
     List<Project> findAllByAdminListContains(User user);
+
+    //Реализация метода getAllAdmins в старом проекте
+    @Query(value = "select users.* from admin_project, users where project_id = :projectId and admin_id = users.id",
+            nativeQuery = true)
+    List<User> getAllProjectAdmins(@Param("projectId") Long projectId);
+
+
+    @Query(value = "select users.* from project, users where project.id = :projectId and project.main_admin = users.id",
+            nativeQuery = true)
+    List<User> getProjectsMainAdmin(@Param("projectId") Long projectId);
 
 }

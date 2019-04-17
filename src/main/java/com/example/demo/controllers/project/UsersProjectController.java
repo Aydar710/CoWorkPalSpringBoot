@@ -2,7 +2,7 @@ package com.example.demo.controllers.project;
 
 import com.example.demo.models.Project;
 import com.example.demo.repositories.project.ProjectRepository;
-import com.example.demo.services.ProjectService;
+import com.example.demo.services.project.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
