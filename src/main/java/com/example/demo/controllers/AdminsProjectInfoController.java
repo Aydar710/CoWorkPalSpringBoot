@@ -33,9 +33,7 @@ public class AdminsProjectInfoController {
     @GetMapping("/projectInfoTasks")
     String getProjectInfoTasksPage(HttpServletRequest request, ModelMap modelMap) {
 
-        //TODO Достать id проекта из куков. Не отправляется ajax запрос
-        //int projectId = Helper.getProjectIdFromCookie(request);
-        int projectId = 25;
+        int projectId = Helper.getProjectIdFromCookie(request);
         ArrayList<Task> allTasks = (ArrayList<Task>) taskRepository.getAllByProjectIdAndIsDone((long) projectId, false);
         modelMap.addAttribute("tasks", allTasks);
         Optional<Project> project = projectReposiory.findById((long) projectId);
