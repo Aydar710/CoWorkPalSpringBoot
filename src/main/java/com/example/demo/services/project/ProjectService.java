@@ -36,4 +36,9 @@ public class ProjectService {
         projectAdmins.add(project.getMainAdmin());
         return projectAdmins;
     }
+
+    public void addAdminToProject(Long adminId, Long projectId){
+        projectRepository.addAdminToProject(adminId, projectId);
+        usersRepository.changeRoleToAdmin(adminId);
+    }
 }

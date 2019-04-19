@@ -1,6 +1,7 @@
 package com.example.demo.controllers.sign;
 
 import com.example.demo.forms.SignUpForm;
+import com.example.demo.services.sign.SignUpService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SignUpController {
 
     @Autowired
-    private UserService signUpService;
+    private SignUpService signUpService;
 
     @GetMapping("/signUp")
     public String getSignUpPage() {

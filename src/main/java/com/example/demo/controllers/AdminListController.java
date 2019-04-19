@@ -7,7 +7,7 @@ import com.example.demo.services.project.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -31,5 +31,14 @@ public class AdminListController {
         modelMap.addAttribute("role", user.getRole().name());
         return "admins";
     }
-    
+
+    @PostMapping("/addAdmin")
+    public String addAdminToProject(@RequestParam("email") String email, HttpServletRequest request) {
+        int projectId = Helper.getProjectIdFromCookie(request);
+        User admin = usersRepository.findByEmail(email);
+        if (admin != null) {
+            projectService.addAdminToProject(admin.getId(), (long) projectId);
+        }
+        return "redirect:/admins";
+    }
 }

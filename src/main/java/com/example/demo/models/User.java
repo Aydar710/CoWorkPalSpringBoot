@@ -39,4 +39,13 @@ public class User {
     //Список проектов, где пользователь является админом
     @ManyToMany(mappedBy = "adminList")
     private List<Project> adminsProjects;
+
+    @Enumerated(value = EnumType.STRING)
+    private UserState state;
+
+    private String confirmString;
+
+    public boolean isEnabled() {
+        return this.getState().equals(UserState.CONFIRMED);
+    }
 }

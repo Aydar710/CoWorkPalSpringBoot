@@ -31,6 +31,9 @@ public class SignInController {
     public String signInUser(SignInForm form, HttpServletResponse resp) {
         if (userService.isExistsByEmailAndPassword(form.getEmail(), form.getPassword())) {
             User currentUser = usersRepository.findByEmail(form.getEmail());
+            if (!currentUser.isEnabled()) {
+                return "redirect:/signIn";
+            }
             Cookie cookieUserId = new Cookie("userId", String.valueOf(currentUser.getId()));
             resp.addCookie(cookieUserId);
             return "redirect:/usersProjects";

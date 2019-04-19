@@ -37,10 +37,10 @@
 <br><br><br><br><br>
 <#if role == "Admin">
     <div class="container">
-        <form role="form" method="post" class="col-md-3">
+        <form role="form" method="post" action="/addAdmin" class="col-md-3">
             <div class="form-group">
-                <label for="admin">Добавить менеджера</label>
-                <input type="text" class="form-control" name="adminsEmail" placeholder="Введите Email" id="admin">
+                <label for="email">Добавить менеджера</label>
+                <input type="text" class="form-control" name="email" placeholder="Введите Email" id="email">
             </div>
             <input type="submit" class="btn btn-primary" value="Добавить менеджера в проект">
         </form>
@@ -57,11 +57,28 @@
         <tbody>
         <#list admins as admin>
             <tr>
-                <td>${admin.name}</td>
+            <td>${admin.name}</td>
             </tr>
         </#list>
         </tbody>
     </table>
 </div>
 </body>
+<script>
+    function addAdmin() {
+        let email = document.getElementById("email").value;
+
+        $.ajax({
+            url: '/addAdmin',
+            type: 'post',
+            data: {
+                email : email
+            }
+        }).done(function () {
+            email.textContent = ''
+        }).fail(function () {
+            alert("fail");
+        })
+    }
+</script>
 </html>

@@ -3,9 +3,11 @@ package com.example.demo.repositories.project;
 import com.example.demo.models.Project;
 import com.example.demo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,4 +60,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             nativeQuery = true)
     List<User> getProjectsMainAdmin(@Param("projectId") Long projectId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "insert into admin_project(project_id, admin_id) values (:projectId, :adminId)",
+            nativeQuery = true)
+    void addAdminToProject(@Param("adminId") Long adminId, @Param("projectId") Long projectId);
 }
