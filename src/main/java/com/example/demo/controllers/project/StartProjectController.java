@@ -87,7 +87,6 @@ public class StartProjectController {
         }catch (NullPointerException e){
             e.printStackTrace();
         }*/
-
         return "project_infoTasks";
     }
 }
