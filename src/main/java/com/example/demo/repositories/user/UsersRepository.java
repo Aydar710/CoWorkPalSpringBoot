@@ -20,9 +20,6 @@ public interface UsersRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    /*@Modifying
-    @Query(value = "update users set is_admin = true where id = :id", nativeQuery = true)
-    Long changeRoleToAdmin(@Param("id") Long id);*/
     @Modifying
     @Transactional
     @Query(value = "update users set is_admin = true where id = :id", nativeQuery = true)

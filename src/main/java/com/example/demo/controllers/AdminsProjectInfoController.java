@@ -7,7 +7,9 @@ import com.example.demo.models.User;
 import com.example.demo.repositories.project.ProjectRepository;
 import com.example.demo.repositories.task.TaskRepository;
 import com.example.demo.repositories.user.UsersRepository;
+import com.example.demo.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,7 @@ public class AdminsProjectInfoController {
     UsersRepository usersRepository;
 
     @GetMapping("/projectInfoTasks")
-    String getProjectInfoTasksPage(HttpServletRequest request, ModelMap modelMap) {
+    String getProjectInfoTasksPage(HttpServletRequest request, ModelMap modelMap, Authentication authentication) {
 
         int projectId = Helper.getProjectIdFromCookie(request);
         ArrayList<Task> allTasks = (ArrayList<Task>) taskRepository.getAllByProjectIdAndIsDone((long) projectId, false);
@@ -41,11 +43,11 @@ public class AdminsProjectInfoController {
             modelMap.addAttribute("projectName", project.get().getName());
         }
 
-        int userId = Helper.getUserIdFromCookie(request);
-        User currentUser = usersRepository.findById((long) userId).get();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User currentUser  = userDetails.getUser();
         //String role = currentUser.getRole().name();
         //TODO получить роль из текущего пользователя
-        String role = "Admin";
+        String role = currentUser.getRole().name();
         modelMap.addAttribute("role", role);
         return "project_infoTasks";
     }

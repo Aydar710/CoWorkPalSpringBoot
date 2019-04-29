@@ -95,9 +95,7 @@
             document.getElementById(elementId).textContent = 'Done';
 
         }).fail(function () {
-            //alert("fail");
-            //TODO исправить
-            document.getElementById(elementId).textContent = 'Done';
+            alert("fail");
         })
     }
 

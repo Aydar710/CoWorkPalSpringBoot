@@ -18,7 +18,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Optional<Task> findById(Long id);
 
-    //TODO: add method getAllByProjectId
+    List<Task> findAllByProject_Id(Long projectId);
+
 
     @Modifying
     @Transactional

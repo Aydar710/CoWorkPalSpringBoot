@@ -48,4 +48,11 @@ public class User {
     public boolean isEnabled() {
         return this.getState().equals(UserState.CONFIRMED);
     }
+
+    public Role getRole() {
+        if (isAdmin)
+            return Role.Admin;
+        else
+            return Role.User;
+    }
 }

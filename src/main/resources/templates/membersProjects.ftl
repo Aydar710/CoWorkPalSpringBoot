@@ -1,8 +1,7 @@
 <html>
 <head>
-    <title>Участники</title>
+    <title>Проекты</title>
 
-    <title>Title</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -11,13 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 </head>
 <body>
-
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -27,44 +28,50 @@
 
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/tasks">Задачи</a></li>
-                <li><a href="/members">Участники</a></li>
-                <li><a href="/admins">Администраторы</a></li>
+                <li><a href="/invite">Заявки</a></li>
+                <li><a href="/startProject">Начать проект</a></li>
                 <li><a href="/usersProjects">Мои проекты</a></li>
+                <li><a href="/membersProjects">Проекты</a></li>
             </ul>
         </div>
 
     </div>
 </nav>
+
 <div class="jumbotron">
     <div class="container">
-        <h3>Участники проекта</h3>
+        <h3>Проекты</h3>
     </div>
-
-    <#if role == "Admin">
-    <div class="container">
-        <a href="/addMember" class="btn btn-primary" role="button">Добавить</a>
-    </div>
-    </#if>
 </div>
 
-
-<div class="container-fluid col-md-3" id="table">
-    <table class="table">
+<div class="container-fluid col-md-3">
+    <table class="table table-hover">
         <thead>
         <tr>
-            <th>Участники</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <#list members as member>
+        <#list membersProjects as project>
             <tr>
-            <td>${member.name}</td>
+                <td><a onclick="onClick(${project.id})" href="/projectInfoTasks">${project.name}</a></td>
             </tr>
         </#list>
         </tbody>
     </table>
 </div>
+
+<script>
+    function onClick(projectID) {
+        $.ajax({
+            url: 'addProjectId',
+            type: 'post',
+            data: {
+                projectId: projectID
+            }
+        })
+    }
+</script>
 
 </body>
 </html>

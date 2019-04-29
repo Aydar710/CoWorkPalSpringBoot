@@ -15,7 +15,6 @@ public interface InviteRepository extends JpaRepository<Invite, Long> {
 
     Optional<Invite> findById(Long id);
 
-    //TODO: В стаорм проекте передается объект Invite
     void deleteById(Long id);
 
     @Query(value = "select * from invite where user_id = :id", nativeQuery = true)

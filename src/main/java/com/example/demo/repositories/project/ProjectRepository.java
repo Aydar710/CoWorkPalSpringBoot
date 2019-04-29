@@ -19,7 +19,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Optional<Project> findById(Long id);
 
-    //TODO: Make sure this method works
     @Query(value = "select users.* from users, user_project where project_id = :id and users.id = user_id",
             nativeQuery = true)
     List<User> getAllProjectMembers(@Param("id") Long id);
@@ -29,9 +28,11 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 //    void addMemberToProject(@Param("user") User user, @Param("project") Project project);
 
     //TODO: Make sure this method works
+    @Modifying
+    @Transactional
     @Query(value = "insert into user_project(project_id, user_id) values (:projectId, :userId)",
             nativeQuery = true)
-    void addMemberToProject(@Param("userId") Long userId, @Param("projectId") Project projectId);
+    void addMemberToProject(@Param("userId") Long userId, @Param("projectId") Long projectId);
 
     /*TODO: Реализовать все эти методы:
     getAllAdminsProjects
